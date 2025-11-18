@@ -13,21 +13,18 @@ cd 546_project
 
 # Data Dictionary
 
-| Variable Name              | Type    | Description                                                                |
-|---------------------------|---------|-----------------------------------------------------------------------------|
-| `prop_id`                 | Integer | ID of the hotel                                                             |
-| `time_idx`                | Integer | Time index of the search                                                    |
-| `srch_destination_id`     | Integer | ID of the search destination area                                           |
-
 | Variable Name                  | Type    | Description                                                                 |
 |--------------------------------|---------|-----------------------------------------------------------------------------|
+| `prop_id`                      | Integer | ID of the hotel                                                             |
+| `time_idx`                     | Integer | Time index of the search                                                    |
+| `srch_destination_id`          | Integer | ID of the search destination area                                           |
 | `srch_length_of_stay`          | Integer | Number of nights searched                                                   |
 | `srch_room_count`              | Integer | Number of hotel rooms specified                                             |
 | `srch_saturday_night_bool`     | Integer | 1 if stay includes Saturday night; 0 otherwise                              |
 | `prop_location_score1`         | Float   | First score for location desirability                                       |
 | `prop_location_score2`         | Float   | Second score for location desirability                                      |
 | `prop_log_historical_price`    | Float   | Log of mean historical price; 0 if unsold in last period                    |
-| `prop_starrating`              | Integer | Hotel star rating (3–4)                                                     |
+| `prop_starrating`              | Integer | Hotel star rating                                                      |
 | `prop_review_score`            | Float   | Mean customer review score (1–5)                                            |
 | `random_bool`                  | Integer | 1 if search results sorted randomly; 0 if normal order                      |
 | `comp_rate`                    | Integer | 1 if Expedia cheaper; 0 if same; −1 if more expensive                       |
