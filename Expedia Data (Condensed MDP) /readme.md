@@ -57,3 +57,52 @@ From the result (*you may try on your own*), we concluded the following:
 
 ## Data Dictionary , ID, State, Action, Reward
 
+
+## Dataset Size Summary
+
+| Stage / File                  | Description                                                | Rows     | Columns | Notes                                                                                   |
+|------------------------------|------------------------------------------------------------|----------|---------|-----------------------------------------------------------------------------------------|
+| Raw Expedia CSV (`train.csv`) | Original Expedia search logs, one row per property shown  | 9,917,530 | 54      | Full click/booking logs plus many auxiliary variables                                  |
+| Row-level RL table (`df_rl`) | Cleaned property-level data, RL-relevant columns only     | 9,917,530 | 40      | After type fixing, mild filtering, and competitor feature construction                 |
+| List-level MDP: train        | Training split (destinations)                             | 222,711  | 26      | 6,936 distinct `srch_destination_id`                                                    |
+| List-level MDP: test         | Test split                                                | 98,179   | 26      | 3,002 distinct `srch_destination_id`                                                    |
+
+Each destination (`srch_destination_id`) forms a small longitudinal trajectory indexed by `time_idx = 1,2,…`, and splits are **group-pure**: no destination appears in more than one of train/test.
+
+---
+
+## Final List-Level MDP Data Dictionary (1 row per `srch_id`)
+
+| Column Name              | Type      | Description                                                                                         |
+|--------------------------|-----------|-----------------------------------------------------------------------------------------------------|
+| `srch_id`                | Integer   | Search/session ID; one row per unique search                                                       |
+| `srch_destination_id`    | Integer   | Destination area ID; groups searches into longitudinal trajectories                                |
+| `time_idx`               | Integer   | Order of the search within its destination, by earliest `date_time` (1, 2, …, K)                   |
+| `srch_length_of_stay`    | Integer   | Number of nights searched for this query (LOS, truncated to ≤ 14)                                  |
+| `srch_room_count`        | Integer   | Number of rooms requested in the search                                                            |
+| `srch_saturday_night_bool` | Integer | 1 if the requested stay includes a Saturday night; 0 otherwise                                     |
+| `random_bool`            | Integer   | 1 if the property list for this search was randomly ordered; 0 if “normal” Expedia ranking         |
+| `prop_review_score`      | Float     | Representative (e.g., first) average review score of properties in the list (1–5)                  |
+| `prop_location_score2`   | Float     | Representative secondary location desirability score for the list                                  |
+| `prop_location_score1`   | Float     | Representative primary location desirability score for the list                                    |
+| `prop_log_historical_price` | Float  | Representative log historical price for properties in the list (after imputation)                 |
+| `prop_starrating`        | Integer   | Representative star rating of properties in the list                                               |
+| `comp_rate`              | Integer   | 1 if **any** competitor is cheaper than Expedia in the list; 0 otherwise                           |
+| `comp_inv`               | Integer   | 1 if **any** competitor is unavailable in the list; 0 otherwise                                    |
+| `total_gross_revenue`    | Float     | Sum of `gross_bookings_usd` over all properties shown in this search                              |
+| `total_clicks`           | Integer   | Total count of `click_bool = 1` over all properties in the list                                    |
+| `n_props`                | Integer   | Number of distinct properties (`prop_id`) shown in this search                                     |
+| `total_promotions`       | Integer   | Total number of properties with `promotion_flag = 1` in the list                                   |
+| `avg_price_per_night`    | Float     | Mean `price_usd` across all properties shown in this search                                        |
+| `std_price_usd`          | Float     | Standard deviation of `price_usd` across properties in the list                                    |
+| `mean_hist_price`        | Float     | Mean of `prop_log_historical_price` across properties in the list                                  |
+| `std_hist_price`         | Float     | Standard deviation of `prop_log_historical_price` across properties in the list                    |
+| `corr_pos_price`         | Float     | Within-list Pearson correlation between `position` (rank in search results) and `price_usd`        |
+| `corr_pos_review`        | Float     | Within-list Pearson correlation between `position` and `prop_review_score`                         |
+| `gross_revenue_per_night`| Float     | `total_gross_revenue` divided by `srch_length_of_stay`; search-level revenue normalized by LOS     |
+| `_split`                 | Categorical | Split label: `"train"`, `"sample"`, or `"test"`, based on destination-level group-pure partition |
+
+Conceptually, `gross_revenue_per_night` and `total_clicks` are the main **reward signals**,  
+while `total_promotions`, `avg_price_per_night`, `corr_pos_price`, and `corr_pos_review` summarize the **action-like list configuration**, and all remaining variables form the **state** of each time-indexed search.
+
+
