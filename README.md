@@ -9,6 +9,7 @@ You can either download the ZIP (no Git) or clone with Git:
 # install git first if needed
 git clone https://github.com/mehrdadmhmdi/546_project.git
 cd 546_project
+```
 
 # Data Dictionary
 
