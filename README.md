@@ -1,1 +1,16 @@
-STAT 546 Homework data - Fall 2025
+---
+title: "546 Data: Expedia Hotel Search"
+output: github_document
+---
+
+# Data Access
+
+The data is available at:  
+<https://github.com/mehrdadmhmdi/546_project.git>
+
+You can either download the ZIP (no Git) or clone with Git:
+
+```bash
+# install git first if needed
+git clone https://github.com/mehrdadmhmdi/546_project.git
+cd 546_project
