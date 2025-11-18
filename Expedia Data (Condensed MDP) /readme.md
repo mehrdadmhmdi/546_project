@@ -49,10 +49,10 @@ From the result (*you may try on your own*), we concluded the following:
 - Autocorrelations show weak but real temporal structure.
 - Predicting reward improves when adding states.
 - Predicting next states depends on previous states/actions.
-- It is not strictly Markov, but somehow Markov. I think removing some variables we can restore strictly markov too.  
+- It is not strictly Markov, but somehow Markov. I think removing some variables we can restore strictly markov too.
 
-
-We can safely conclude that this is **offline RL (MDP) problem**, not a **bandit**.
+  *We can safely conclude that this is **offline RL (MDP) problem**, not a **bandit**.*
+  
 ---
 
 ## Data Dictionary , ID, State, Action, Reward
