@@ -62,8 +62,8 @@ From the result (*you may try on your own*), we concluded the following:
 
 | Stage / File                  | Description                                                | Rows     | Columns | Notes                                                                                   |
 |------------------------------|------------------------------------------------------------|----------|---------|-----------------------------------------------------------------------------------------|
-| List-level MDP: train        | Training split (destinations)                             | 222,711  | 26      | 6,936 distinct `srch_destination_id`                                                    |
-| List-level MDP: test         | Test split                                                | 98,179   | 26      | 3,002 distinct `srch_destination_id`                                                    |
+| List-level MDP: train        | Training split (destinations)                             | 14,879  | 26      | 496 distinct `srch_destination_id`                                                    |
+| List-level MDP: test         | Test split                                                | 2,836   | 26      | 100 distinct `srch_destination_id`                                                    |
 
 Each destination (`srch_destination_id`) forms a small longitudinal trajectory indexed by `time_idx = 1,2,…`, and splits are **group-pure**: no destination appears in more than one of train/test.
 
