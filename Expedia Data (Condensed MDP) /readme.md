@@ -1,5 +1,6 @@
-# Structure
-## What This Data Is and How We Restructure It
+# Data Structure and Information
+---
+## What This Data Is and How We Restructure It?
 
 The raw Expedia Hotel Search data records **what a user saw on a search results page** on Expedia.  
 In the raw files ([available here](https://www.kaggle.com/competitions/expedia-personalized-sort/)), each time a user performs a search (`srch_id`), Expedia shows a **list of hotels**, and the raw dataset contains **one row per *property shown* in that list**.  
@@ -12,7 +13,7 @@ So at the raw level:
 
 ---
 
-## What structure we transform this into
+## What structure we transform this into?
 
 We convert this raw list-view dataset into a **longitudinal, time-indexed format**:
 
@@ -30,3 +31,12 @@ This produces a **long-format panel** where:
 - **`time_idx` = the search order for that destination**
 
 This is the format required for downstream **longitudinal modeling and RL-style analysis**.
+
+---
+
+## Is this a MDP setting?
+
+---
+
+## Data Dictionary , ID, State, Action, Reward
+
